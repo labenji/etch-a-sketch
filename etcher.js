@@ -1,14 +1,18 @@
-$(document).ready(function(){
-	var input = prompt ('gridsize:');
+$(document).ready(function main(){
+	$('.rows').remove();
+	var input = prompt ('gridsize?:');
 	input-=1;
-	var squaresize = $(window).height()/input;
+	var squaresize = ($(window).height()-(3*input))/input;
 
 
 	for (var h = 0; h <= input; h++){
 		for (var i = 0; i <= input; i++) {
 		    $('<div />', {
 		        'class' : 'rows',
-		        'id'    : 'row' + i
+		        'id'    : 'row' + i,
+		        'data-red':'256',
+		        'data-blu':'256',
+		        'data-gre':'256'
 		    }).appendTo('#gridcontainer');
 		};
 		$('<div />', {
@@ -22,13 +26,14 @@ $(document).ready(function(){
 	$('.rows').on('click',function(){
 		$(this).toggleClass('clicked');
 	});
-
+	//color trail
 	$('.rows').on('mouseenter',function(){
 			var col = 'rgb(' + rands() + ',' + rands() + ',' + rands() + ')';
 			if($(this).css('background-color')!='rgb(0, 0, 0)'){
 				$(this).css('background-color',col);
 			}
 	});
+	//click to black
 	$('.rows').on('click',function(){
 		if($(this).css('background-color')!='rgb(0, 0, 0)'){
 			$(this).css('background-color','black');
@@ -38,10 +43,15 @@ $(document).ready(function(){
 			$(this).css('background-color',col);
 		}
 	});
+	//reset button
+	$('#reset').on('click',function(){
+		main();
+	});
 	
 
 
 });
+
 
 
 function rands(){
